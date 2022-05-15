@@ -36,3 +36,37 @@
     transform: rotate(360deg);
   }
 }
+
+.header{
+  background-color: blue;
+  color: white;
+  text-align: center;
+  padding: 30px 0;
+}
+
+.contents{
+  display: flex;
+}
+
+.navigation{
+  background-color: green;
+  width: 30%;
+  color: white;
+  text-align: center;
+  padding: 100px 0;
+}
+
+.content{
+  background-color: gray;
+  width: 70%;
+  color: white;
+  text-align: center;
+  padding: 100px 0;
+}
+
+.footer{
+  background-color: orange;
+  color: white;
+  text-align: center;
+  padding: 30px 0;
+}

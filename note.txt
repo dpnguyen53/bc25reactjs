@@ -1,0 +1,29 @@
+link repo: https://github.com/dpnguyen53/bc25reactjs
+
+- ES6
+- Component: Tai su dung
+- SPA => render client
+- JSX
+
+============ Buổi 1 ==============
+* Component
+    - Stateful Component: class
+    - Stateless Component: function
+* Rendering Elements
+
+- Baitap1 Component
+    + Header Component
+    + Navaigation Component
+    + Content Component
+    + Footer Component
+
+- Baitap2 Component
+    + Header
+    + Carousel
+    + WhatWeDo
+    + Contact
+    + ListCard
+        + ItemCard
+        + ItemCard
+        + ItemCard
+    + Footer
