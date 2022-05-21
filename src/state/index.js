@@ -8,6 +8,8 @@ export default class State extends Component {
     this.state = {
       isLogin: false,
     };
+
+    // this.handleLogin = this.handleLogin.bind(this);
   }
 
   handleLogin = () => {
@@ -16,11 +18,19 @@ export default class State extends Component {
     });
   };
 
+  handleLogout = () => {
+    this.setState({
+      isLogin: false,
+    });
+  };
+
   renderHTML() {
     return this.state.isLogin ? (
       <div>
         <h2>Xin chao username</h2>
-        <button className="btn btn-danger">Logout</button>
+        <button className="btn btn-danger" onClick={this.handleLogout}>
+          Logout
+        </button>
       </div>
     ) : (
       <button className="btn btn-success" onClick={this.handleLogin}>
@@ -41,7 +51,6 @@ export default class State extends Component {
   }
 
   render() {
-    console.log("render");
     return (
       <div>
         <h3>*State</h3>
