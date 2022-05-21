@@ -27,3 +27,10 @@ link repo: https://github.com/dpnguyen53/bc25reactjs
         + ItemCard
         + ItemCard
     + Footer
+
+
+===== Buổi 2 ======
+* Rendering Elements: {}
+* Handling Events: onClick
+* State: Nếu state thay đổi thì render chạy lại
+* List keys
