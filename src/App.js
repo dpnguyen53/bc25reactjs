@@ -7,6 +7,8 @@ import State from "./state";
 import ExampleCar from "./state/example";
 import ListKeys from "./list-keys";
 import ExampleListKeys from "./list-keys/example";
+import Communication from "./communication";
+import ShoppingCart from "./shopping-cart";
 
 function App() {
   return (
@@ -24,6 +26,10 @@ function App() {
       <ListKeys />
       <hr />
       <ExampleListKeys />
+      <hr />
+      <Communication />
+      <hr />
+      <ShoppingCart />
 
       <br />
       <br />

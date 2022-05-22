@@ -34,3 +34,8 @@ link repo: https://github.com/dpnguyen53/bc25reactjs
 * Handling Events: onClick
 * State: Nếu state thay đổi thì render chạy lại
 * List keys
+
+===== Buổi 3 ======
+* Communication
+    - Props: truyền dữ liệu từ component cha => component con
+    - Lifting State Up: Truyền dữ liệu từ component con => component cha
