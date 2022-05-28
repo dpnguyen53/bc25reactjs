@@ -39,3 +39,7 @@ link repo: https://github.com/dpnguyen53/bc25reactjs
 * Communication
     - Props: truyền dữ liệu từ component cha => component con
     - Lifting State Up: Truyền dữ liệu từ component con => component cha
+
+===== Buổi 4 ======
+* Shopping cart
+* Usermanagement

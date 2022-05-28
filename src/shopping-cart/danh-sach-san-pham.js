@@ -9,6 +9,7 @@ export default class DanhSachSanPham extends Component {
           key={item.maSP}
           product={item}
           getDetail={this.props.getDetail}
+          getProductAddCart={this.props.getProductAddCart}
         />
       );
     });

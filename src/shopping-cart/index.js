@@ -10,6 +10,7 @@ export default class ShoppingCart extends Component {
     this.state = {
       productList: data,
       detailProduct: data[0],
+      listCart: [],
     };
   }
 
@@ -19,8 +20,87 @@ export default class ShoppingCart extends Component {
     });
   };
 
+  _findIndex = (maSP) =>
+    this.state.listCart.findIndex((item) => item.maSP === maSP);
+
+  /**
+   * Add & Update Product Cart
+   */
+  handleAddCart = (product) => {
+    //clone listCart
+    const listCartClone = [...this.state.listCart];
+
+    //Tim kiem product co ton tai trong state.listCart?
+    const index = this._findIndex(product.maSP);
+
+    if (index !== -1) {
+      //update
+      listCartClone[index].soLuong += 1;
+    } else {
+      //add
+      const productNew = {
+        maSP: product.maSP,
+        tenSP: product.tenSP,
+        hinhAnh: product.hinhAnh,
+        soLuong: 1,
+        donGia: product.giaBan,
+      };
+
+      listCartClone.push(productNew);
+    }
+
+    this.setState({
+      listCart: listCartClone,
+    });
+  };
+
+  /**
+   * Delete Product Cart
+   */
+  handleDeleteProduct = (product) => {
+    const index = this._findIndex(product.maSP);
+    if (index !== -1) {
+      //Xoa product trong state.listCart
+      const listCartClone = [...this.state.listCart];
+      listCartClone.splice(index, 1);
+
+      this.setState({
+        listCart: listCartClone,
+      });
+    }
+  };
+
+  /**
+   * Tang giam SL
+   */
+  handleTangGiamSL = (status, product) => {
+    const listCartClone = [...this.state.listCart];
+    const index = this._findIndex(product.maSP);
+
+    if (index !== -1) {
+      if (status) {
+        //tang
+        listCartClone[index].soLuong += 1;
+      } else {
+        //giam
+        if (listCartClone[index].soLuong > 1) {
+          listCartClone[index].soLuong -= 1;
+        }
+      }
+      this.setState({
+        listCart: listCartClone,
+      });
+    }
+  };
+
+  totalQuantity = () => {
+    return this.state.listCart.reduce((total, item) => {
+      return (total += item.soLuong);
+    }, 0);
+  };
+
   render() {
-    const { productList, detailProduct } = this.state;
+    const { productList, detailProduct, listCart } = this.state;
     return (
       <div>
         <h3 className="title">Bài tập giỏ hàng</h3>
@@ -30,14 +110,19 @@ export default class ShoppingCart extends Component {
             data-toggle="modal"
             data-target="#modelId"
           >
-            Giỏ hàng (0)
+            Giỏ hàng ({this.totalQuantity()})
           </button>
         </div>
         <DanhSachSanPham
           productList={productList}
           getDetail={this.handleDetailProduct}
+          getProductAddCart={this.handleAddCart}
         />
-        <Modal />
+        <Modal
+          listCart={listCart}
+          getProductDeleteCart={this.handleDeleteProduct}
+          getProductQuantity={this.handleTangGiamSL}
+        />
         <div className="row">
           <div className="col-sm-5">
             <img className="img-fluid" src={detailProduct.hinhAnh} alt="" />
