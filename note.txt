@@ -43,3 +43,8 @@ link repo: https://github.com/dpnguyen53/bc25reactjs
 ===== Buổi 4 ======
 * Shopping cart
 * Usermanagement
+
+===== Buổi 5 ======
+* Usermanagement
+* Form
+* LifeCycle

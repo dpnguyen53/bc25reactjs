@@ -9,6 +9,8 @@ class Home extends Component {
     super(props);
     this.state = {
       userList: data,
+      userEdit: null,
+      keyword: "",
     };
   }
 
@@ -30,25 +32,77 @@ class Home extends Component {
     }
   };
 
+  /**
+   * Save user
+   */
+  saveUser = (user) => {
+    let userList = [...this.state.userList];
+    if (user.id) {
+      //update
+      const index = this._findIndex(user.id);
+      if (index !== -1) {
+        userList[index] = user;
+      }
+    } else {
+      //add
+      const userNew = { ...user, id: new Date().getTime() };
+      userList = [...this.state.userList, userNew];
+    }
+
+    this.setState({
+      userList,
+    });
+  };
+
+  /**
+   * Edit
+   */
+  handleUserEdit = (user) => {
+    this.setState({
+      userEdit: user,
+    });
+  };
+
+  /**
+   * Search
+   */
+  handleGetKeyword = (keyword) => {
+    this.setState({
+      keyword,
+    });
+  };
+
   render() {
+    let { userList, keyword } = this.state;
+
+    userList = userList.filter((user) => {
+      return user.fullname.toLowerCase().indexOf(keyword.toLowerCase()) !== -1;
+    });
+
     return (
       <div className="container">
         <h1 className="display-4 text-center my-3">User Management</h1>
         <div className="d-flex justify-content-between align-items-center">
-          <Search />
+          <Search getKeyword={this.handleGetKeyword} />
           <button
             className="btn btn-success"
             data-toggle="modal"
             data-target="#modelIdUser"
+            onClick={() => {
+              this.setState({
+                userEdit: null,
+              });
+            }}
           >
             Add User
           </button>
         </div>
         <Users
-          userList={this.state.userList}
+          userList={userList}
           getUserDelete={this.handleDeleteUser}
+          getUserEdit={this.handleUserEdit}
         />
-        <Modal />
+        <Modal getUserSave={this.saveUser} userEdit={this.state.userEdit} />
       </div>
     );
   }
