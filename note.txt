@@ -48,3 +48,7 @@ link repo: https://github.com/dpnguyen53/bc25reactjs
 * Usermanagement
 * Form
 * LifeCycle
+
+===== Buổi 6 ======
+* Redux
+    - npm install redux react-redux --save 
