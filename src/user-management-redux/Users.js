@@ -4,16 +4,14 @@ import { connect } from "react-redux";
 
 class Users extends Component {
   renderUserList = () => {
-    const { userList, getUserDelete, getUserEdit } = this.props;
+    let { userList, keyword } = this.props;
+
+    userList = userList.filter((user) => {
+      return user.fullname.toLowerCase().indexOf(keyword.toLowerCase()) !== -1;
+    });
+
     return userList?.map((user) => {
-      return (
-        <UserItem
-          key={user.id}
-          user={user}
-          // getUserDelete={getUserDelete}
-          // getUserEdit={getUserEdit}
-        />
-      );
+      return <UserItem key={user.id} user={user} />;
     });
   };
 
@@ -42,6 +40,7 @@ const mapStateToProps = (state) => {
   return {
     //key: value
     userList: state.userReducer.userList,
+    keyword: state.userReducer.keyword,
   };
 };
 

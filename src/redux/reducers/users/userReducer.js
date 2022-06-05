@@ -1,3 +1,10 @@
+import {
+  DELETE_USER,
+  EDIT_USER,
+  SAVE_USER,
+  GET_KEYWORD,
+} from "./../../constants/user";
+
 const initialState = {
   userList: [
     {
@@ -22,9 +29,8 @@ const initialState = {
 };
 
 const userReducer = (state = initialState, action) => {
-  console.log(action);
   switch (action.type) {
-    case "DELETE_USER": {
+    case DELETE_USER: {
       //Xoa user
       //clone array
       const userList = [...state.userList];
@@ -41,10 +47,16 @@ const userReducer = (state = initialState, action) => {
       return { ...state };
     }
 
-    case "SAVE_USER": {
+    case SAVE_USER: {
       const userList = [...state.userList];
       if (action.payload.id) {
         //update
+        const index = userList.findIndex(
+          (user) => user.id === action.payload.id
+        );
+        if (index !== -1) {
+          userList[index] = action.payload;
+        }
       } else {
         //add
         const userNew = { ...action.payload, id: new Date().getTime() };
@@ -56,8 +68,13 @@ const userReducer = (state = initialState, action) => {
       return { ...state };
     }
 
-    case "EDIT_USER": {
+    case EDIT_USER: {
       state.userEdit = action.payload;
+      return { ...state };
+    }
+
+    case GET_KEYWORD: {
+      state.keyword = action.payload;
       return { ...state };
     }
 

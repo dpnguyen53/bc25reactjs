@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
+import { actDeletUser, actEditUser } from "./../redux/actions/user";
 
 class UserItem extends Component {
   render() {
@@ -40,19 +41,11 @@ const mapDispatchToProps = (dispatch) => {
   return {
     //key: value
     deleteUser: (user) => {
-      const action = {
-        type: "DELETE_USER",
-        payload: user,
-      };
-      dispatch(action);
+      dispatch(actDeletUser(user));
     },
 
     editUser: (user) => {
-      const action = {
-        type: "EDIT_USER",
-        payload: user,
-      };
-      dispatch(action);
+      dispatch(actEditUser(user));
     },
   };
 };

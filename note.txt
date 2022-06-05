@@ -52,3 +52,8 @@ link repo: https://github.com/dpnguyen53/bc25reactjs
 ===== Buổi 6 ======
 * Redux
     - npm install redux react-redux --save 
+* User Management Redux
+
+===== Buổi 7 ======
+* User Management Redux
+* Shopping Cart Redux

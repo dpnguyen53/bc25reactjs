@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
+import { actSaveUser } from "./../redux/actions/user";
 
 class Modal extends Component {
   constructor(props) {
@@ -159,11 +160,7 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
   return {
     saveUser: (user) => {
-      const action = {
-        type: "SAVE_USER",
-        payload: user,
-      };
-      dispatch(action);
+      dispatch(actSaveUser(user));
     },
   };
 };

@@ -8,8 +8,9 @@ import ExampleCar from "./state/example";
 import ListKeys from "./list-keys";
 import ExampleListKeys from "./list-keys/example";
 import Communication from "./communication";
-import ShoppingCart from "./shopping-cart";
+// import ShoppingCart from "./shopping-cart";
 // import Home from "./user-management";
+import ShoppingCartRedux from "./shopping-cart-redux";
 import HomeRedux from "./user-management-redux";
 
 function App() {
@@ -31,7 +32,8 @@ function App() {
       <hr />
       <Communication />
       <hr />
-      <ShoppingCart />
+      {/* <ShoppingCart /> */}
+      <ShoppingCartRedux />
       <hr />
       {/* <Home /> */}
       <HomeRedux />
