@@ -12,13 +12,14 @@ import Communication from "./communication";
 // import Home from "./user-management";
 import ShoppingCartRedux from "./shopping-cart-redux";
 import HomeRedux from "./user-management-redux";
+import BaiTapForm from "./BaiTapForm/BaiTapForm";
 
 function App() {
   return (
-    <>
+    <div style={{marginBottom:'500px'}}>
       {/* <Baitap1 /> */}
       {/* <Baitap2 /> */}
-      <RenderingElements />
+      {/* <RenderingElements />
       <hr />
       <HandlingEvents />
       <hr />
@@ -31,56 +32,16 @@ function App() {
       <ExampleListKeys />
       <hr />
       <Communication />
-      <hr />
+      <hr /> */}
       {/* <ShoppingCart /> */}
-      <ShoppingCartRedux />
-      <hr />
+      {/* <ShoppingCartRedux /> */}
+      {/* <hr /> */}
       {/* <Home /> */}
-      <HomeRedux />
+      {/* <HomeRedux /> */}
+      <BaiTapForm />
 
       <br />
-      <br />
-      <br />
-      <br />
-      <br />
-      <br />
-      <br />
-      <br />
-      <br />
-      <br />
-      <br />
-      <br />
-      <br />
-      <br />
-      <br />
-      <br />
-      <br />
-      <br />
-      <br />
-      <br />
-      <br />
-      <br />
-      <br />
-      <br />
-      <br />
-      <br />
-      <br />
-      <br />
-      <br />
-      <br />
-      <br />
-      <br />
-      <br />
-      <br />
-      <br />
-      <br />
-      <br />
-      <br />
-      <br />
-      <br />
-      <br />
-      <br />
-    </>
+    </div>
   );
 }
 
