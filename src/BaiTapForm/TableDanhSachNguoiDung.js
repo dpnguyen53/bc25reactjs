@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
+import {connect} from 'react-redux'
 
-export default class TableDanhSachNguoiDung extends Component {
+ class TableDanhSachNguoiDung extends Component {
   render() {
     return (
       <div className='card'>
@@ -21,18 +22,21 @@ export default class TableDanhSachNguoiDung extends Component {
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
-                        <td>nguyenvana</td>
-                        <td>*******</td>
-                        <td>Nguyễn Văn A</td>
-                        <td>Email@gmail.com</td>
-                        <td>09090909</td>
-                        <td>NguoiDung</td>
+                    {this.props.mangNguoiDung.map((nd,index)=>{
+                        return <tr key={index}>
+                        <td>{nd.taiKhoan}</td>
+                        <td>{nd.matKhau}</td>
+                        <td>{nd.hoTen}</td>
+                        <td>{nd.email}</td>
+                        <td>{nd.soDienThoai}</td>
+                        <td>{nd.loaiNguoiDung}</td>
                         <td>
                             <button className='btn btn-primary'>Chỉnh sửa</button>
                             <button className='btn btn-danger ml-2'>Xoá</button>
                         </td>
                     </tr>
+                    })}
+                    
                 </tbody>
             </table>
         </div>
@@ -40,3 +44,13 @@ export default class TableDanhSachNguoiDung extends Component {
     )
   }
 }
+
+
+const mapStateToProps = (rootReducer) => {
+
+    return {
+        mangNguoiDung: rootReducer.formReducer.mangNguoiDung
+    }
+}
+
+export default connect(mapStateToProps)(TableDanhSachNguoiDung);

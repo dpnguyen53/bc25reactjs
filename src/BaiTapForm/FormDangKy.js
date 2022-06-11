@@ -3,33 +3,99 @@ import React, { Component } from 'react'
 export default class FormDangKy extends Component {
 
     state = {
-        taiKhoan: '',
-        matKhau: '',
-        email: '',
-        soDienThoai: '',
-        hoTen: '',
-        loaiNguoiDung: 'NguoiDung'
+        value: {
+            taiKhoan: '',
+            matKhau: '',
+            email: '',
+            soDienThoai: '',
+            hoTen: '',
+            loaiNguoiDung: 'NguoiDung'
+        },
+        error: {
+            taiKhoan: ' ',
+            matKhau: ' ',
+            email: ' ',
+            soDienThoai: ' ',
+            hoTen: ' ',
+        }
+
     }
 
     handleChangeInput = (event) => {
         // debugger;
         //.target: Truy xuất ngược lại thẻ đang xảy ra sự kiện
-        let value = event.target.value;
-        let id = event.target.id;
-        // console.log(id,taiKhoan);
+        let { value, id } = event.target;
+        // event.target['data-type']
+        let type = event.target.getAttribute('data-type');
+        let minLength = event.target.getAttribute('data-minlength');
+        let maxLength = event.target.getAttribute('data-maxlength');
+
+        // debugger;
+
+        //Đưa giá trị this.state.value ra 1 biến
+        let newValue = { ...this.state.value };
+        newValue[id] = value;
+
+        // debugger;
+        //xử lý cho this.state.error
+        let newError = { ...this.state.error };
+        let messError = '';
+        if (value.trim() === '') {
+            messError = id + ' không được bỏ trống !';
+        } else {
+            if (type === 'emailType') {
+                let regexEmail = /^(([^<>()[\]\.,;:\s@\"]+(\.[^<>()[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i;
+                if (!regexEmail.test(value)) {
+                    //có dấu ! phủ định
+                    messError = id + ' không đúng định dạng !';
+                }
+            }
+            if (minLength) {
+                if (value.length > maxLength || value.length < minLength) {
+                    messError = `${id} từ ${minLength} - ${maxLength} ký tự !`;
+                }
+            }
+        }
+
+        newError[id] = messError;
+
+
         this.setState({
-            [id]: value //object literal - dynamic key
+            value: newValue, //object literal - dynamic key
+            error: newError
         }, () => {
             console.log(this.state);
         })
     }
 
+    handleSubmit = (event) => {
+        event.preventDefault(); //Hàm cản sự kiện reload lại trang        
+        // console.log(this.state);
+        //Check error có giá trị hay không (this.state.error)
+        // //{
+        //     taiKhoan: ' ',
+        //     matKhau: ' ',
+        //     email: ' ',
+        //     soDienThoai: ' ',
+        //     hoTen: 'họ tên không được bỏ trống',
+        // }
+
+        const {error} = this.state;
+        for(let key in error){
+            if(error[key] !== '') {
+                return;
+            }
+        }
+
+        //không rơi vào if -> sẽ không dừng hàm
+        console.log('submit');
+
+    }
+
+
     render() {
         return (
-            <form className='card' onSubmit={(event) => {
-                event.preventDefault(); //Hàm cản sự kiện reload lại trang        
-                console.log(this.state);
-            }}>
+            <form className='card' onSubmit={this.handleSubmit}>
                 <div className='card-header bg-dark text-white'>
                     <h3>Form đăng ký</h3>
                 </div>
@@ -39,24 +105,33 @@ export default class FormDangKy extends Component {
                             <div className='form-group'>
                                 <p>Tài khoản</p>
                                 <input id="taiKhoan" name="taiKhoan" className='form-control' onChange={this.handleChangeInput} />
+                                <p className='text-danger'>{this.state.error.taiKhoan}</p>
                             </div>
                             <div className='form-group'>
                                 <p>Họ tên</p>
-                                <input id="hoTen" name="hoTen" className='form-control' onChange={this.handleChangeInput}/>
+                                <input id="hoTen" name="hoTen" className='form-control' onChange={this.handleChangeInput} />
+                                <p className='text-danger'>{this.state.error.hoTen}</p>
+
                             </div>
                             <div className='form-group'>
                                 <p>Email</p>
-                                <input id="email" name="email" className='form-control' onChange={this.handleChangeInput} />
+                                <input data-type={"emailType"} id="email" name="email" className='form-control' onChange={this.handleChangeInput} />
+                                <p className='text-danger'>{this.state.error.email}</p>
+
                             </div>
                         </div>
                         <div className='col-6'>
                             <div className='form-group'>
                                 <p>Mật khẩu</p>
-                                <input id="matKhau" name="matKhau" className='form-control' type="password" onChange={this.handleChangeInput} />
+                                <input data-minlength="6" data-maxlength="32" id="matKhau" name="matKhau" className='form-control' type="password" onChange={this.handleChangeInput} />
+                                <p className='text-danger'>{this.state.error.matKhau}</p>
+
                             </div>
                             <div className='form-group'>
                                 <p>Số điện thoại</p>
-                                <input id="soDienThoai" name="soDienThoai" className='form-control' onChange={this.handleChangeInput}/>
+                                <input id="soDienThoai" name="soDienThoai" className='form-control' onChange={this.handleChangeInput} />
+                                <p className='text-danger'>{this.state.error.soDienThoai}</p>
+
                             </div>
                             <div className='form-group'>
                                 <p>Loại người dùng</p>
@@ -75,3 +150,13 @@ export default class FormDangKy extends Component {
     }
 }
 
+
+// let objectA = {
+//     id:1,
+//     name:'ABC',
+//     ['địa chỉ']:'459 sư vạn hạnh'
+// }
+
+// console.log(objectA);
+// // objectA.name = 'XYZ';
+// // objectA['địa chỉ'] = 'XYZ';
