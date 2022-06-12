@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
-
-export default class FormDangKy extends Component {
+import { connect } from 'react-redux'
+class FormDangKy extends Component {
 
     state = {
         value: {
@@ -80,20 +80,49 @@ export default class FormDangKy extends Component {
         //     hoTen: 'họ tên không được bỏ trống',
         // }
 
-        const {error} = this.state;
-        for(let key in error){
-            if(error[key] !== '') {
+        const { error } = this.state;
+        for (let key in error) {
+            if (error[key] !== '') {
                 return;
             }
         }
 
         //không rơi vào if -> sẽ không dừng hàm
-        console.log('submit');
+        // console.log('submit');
+        const action = {
+            type: 'THEM_NGUOI_DUNG',
+            payload: this.state.value
+        }
+        //Đưa dữ liệu lên reducer (gửi tất cả reducer)
+        this.props.dispatch(action);
 
     }
 
+    // static getDerivedStateFromProps(newProps, currentState) {
+    //     //Can thiệp vào quá trình trước khi render và sau khi props mới từ redux trả về
+    //     //Lấy props mới thay đổi của redux gán vào state  tại vị trí náy
+    //     if (newProps.nguoiDungSua.taiKhoan !== currentState.value.taiKhoan) {
+    //         let newState = {
+    //             ...currentState,
+    //             value: newProps.nguoiDungSua
+    //         }
+    //         return newState;
+    //     }
+    //     return null;
+    // }
+
+    //Sử dụng lifecycle phiên bản cũ
+    //Hàm này tương tự getDerivedStateFromProps: tuy nhiên state thay đổi thì không chạy. Chỉ chạy khi props thay đổi
+    componentWillReceiveProps(newProps) { //Lifecycle này kích hoạt khi props của component thay đổi và trước khi render
+        //Đem props gán vào state => giao diện binding từ state
+        this.setState({
+            value: newProps.nguoiDungSua
+        })
+    }
 
     render() {
+        console.log(this.props);
+        let { taiKhoan, matKhau, email, soDienThoai, loaiNguoiDung, hoTen } = this.state.value;
         return (
             <form className='card' onSubmit={this.handleSubmit}>
                 <div className='card-header bg-dark text-white'>
@@ -104,18 +133,18 @@ export default class FormDangKy extends Component {
                         <div className='col-6'>
                             <div className='form-group'>
                                 <p>Tài khoản</p>
-                                <input id="taiKhoan" name="taiKhoan" className='form-control' onChange={this.handleChangeInput} />
+                                <input id="taiKhoan" name="taiKhoan" className='form-control' onChange={this.handleChangeInput} value={taiKhoan} />
                                 <p className='text-danger'>{this.state.error.taiKhoan}</p>
                             </div>
                             <div className='form-group'>
                                 <p>Họ tên</p>
-                                <input id="hoTen" name="hoTen" className='form-control' onChange={this.handleChangeInput} />
+                                <input id="hoTen" name="hoTen" className='form-control' onChange={this.handleChangeInput} value={hoTen} />
                                 <p className='text-danger'>{this.state.error.hoTen}</p>
 
                             </div>
                             <div className='form-group'>
                                 <p>Email</p>
-                                <input data-type={"emailType"} id="email" name="email" className='form-control' onChange={this.handleChangeInput} />
+                                <input data-type={"emailType"} id="email" name="email" className='form-control' onChange={this.handleChangeInput} value={email} />
                                 <p className='text-danger'>{this.state.error.email}</p>
 
                             </div>
@@ -123,19 +152,19 @@ export default class FormDangKy extends Component {
                         <div className='col-6'>
                             <div className='form-group'>
                                 <p>Mật khẩu</p>
-                                <input data-minlength="6" data-maxlength="32" id="matKhau" name="matKhau" className='form-control' type="password" onChange={this.handleChangeInput} />
+                                <input data-minlength="6" data-maxlength="32" id="matKhau" name="matKhau" className='form-control' type="password" onChange={this.handleChangeInput} value={matKhau} />
                                 <p className='text-danger'>{this.state.error.matKhau}</p>
 
                             </div>
                             <div className='form-group'>
                                 <p>Số điện thoại</p>
-                                <input id="soDienThoai" name="soDienThoai" className='form-control' onChange={this.handleChangeInput} />
+                                <input id="soDienThoai" name="soDienThoai" className='form-control' onChange={this.handleChangeInput} value={soDienThoai} />
                                 <p className='text-danger'>{this.state.error.soDienThoai}</p>
 
                             </div>
                             <div className='form-group'>
                                 <p>Loại người dùng</p>
-                                <select className='form-control' id="loaiNguoiDung" name='loaiNguoiDung' onChange={this.handleChangeInput}> <option value="QuanTri">QuanTri</option> <option value="NguoiDung">NguoiDung</option> </select>
+                                <select value={loaiNguoiDung} className='form-control' id="loaiNguoiDung" name='loaiNguoiDung' onChange={this.handleChangeInput}> <option value="QuanTri">QuanTri</option> <option value="NguoiDung">NguoiDung</option> </select>
                             </div>
                         </div>
                     </div>
@@ -143,20 +172,30 @@ export default class FormDangKy extends Component {
                 </div>
                 <div className='card-footer'>
                     <button type='submit' className='btn btn-success'>Đăng ký</button>
-                    <button className='btn btn-success ml-2' type='button'>Cập nhật</button>
+                    <button className='btn btn-success ml-2' type='button' onClick={() => {
+                        const action = {
+                            type:'CAP_NHAT_NGUOI_DUNG',
+                            payload: this.state.value
+                        }
+                        
+                        this.props.dispatch(action);
+                    }}>Cập nhật</button>
                 </div>
             </form>
         )
     }
 }
 
+const mapStateToProps = (rootReducer) => {
 
-// let objectA = {
-//     id:1,
-//     name:'ABC',
-//     ['địa chỉ']:'459 sư vạn hạnh'
-// }
+    return {
+        nguoiDungSua: rootReducer.formReducer.nguoiDungSua
+    }
+}
 
-// console.log(objectA);
-// // objectA.name = 'XYZ';
-// // objectA['địa chỉ'] = 'XYZ';
+
+
+export default connect(mapStateToProps)(FormDangKy);
+
+
+

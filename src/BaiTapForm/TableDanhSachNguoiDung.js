@@ -31,8 +31,24 @@ import {connect} from 'react-redux'
                         <td>{nd.soDienThoai}</td>
                         <td>{nd.loaiNguoiDung}</td>
                         <td>
-                            <button className='btn btn-primary'>Chỉnh sửa</button>
-                            <button className='btn btn-danger ml-2'>Xoá</button>
+                            <button className='btn btn-primary' onClick={()=>{
+                                //Đưa dữ liệu lên redux thay đổi cho state.nguoiDungSua của formReducer
+                                const action = {
+                                    type:'SUA_NGUOI_DUNG',
+                                    payload: nd
+                                }
+                                this.props.dispatch(action);
+
+                            }}>Chỉnh sửa</button>
+                            <button className='btn btn-danger ml-2' onClick={() =>{
+                                const action = {
+                                    type:'XOA_NGUOI_DUNG',
+                                    payload:nd.taiKhoan
+                                }
+                                //Đưa dữ liệu lên reducer
+                                this.props.dispatch(action);
+                                
+                            }}>Xoá</button>
                         </td>
                     </tr>
                     })}

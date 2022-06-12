@@ -13,6 +13,8 @@ import Communication from "./communication";
 import ShoppingCartRedux from "./shopping-cart-redux";
 import HomeRedux from "./user-management-redux";
 import BaiTapForm from "./BaiTapForm/BaiTapForm";
+import LifeCycle from "./LifeCycle/LifeCycle";
+import RefDemo from "./RefDemo/RefDemo";
 
 function App() {
   return (
@@ -39,7 +41,8 @@ function App() {
       {/* <Home /> */}
       {/* <HomeRedux /> */}
       <BaiTapForm />
-
+      {/* <LifeCycle /> */}
+      {/* <RefDemo /> */}
       <br />
     </div>
   );
