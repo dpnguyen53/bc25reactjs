@@ -57,3 +57,9 @@ link repo: https://github.com/dpnguyen53/bc25reactjs
 ===== Buổi 7 ======
 * User Management Redux
 * Shopping Cart Redux
+
+===== Buổi 8 ======
+* Form Validation
+
+===== Buổi 9 ======
+* Life cycle
